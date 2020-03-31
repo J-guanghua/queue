@@ -14,6 +14,10 @@ or add
 Usage
 -----
 
+Once the extension is installed, simply use it in your code by  :
+
+```php
+
 支持 文件 , redis , beanstalk 存储队列方式
 
 发送到队列的每个任务应该被定义为一个单独的类。例如，如果您需要下载并保存文件，则该类可能如下所示：
