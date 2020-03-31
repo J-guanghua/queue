@@ -14,8 +14,7 @@ or add
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
-
+适用于 php
 ```php
 
 支持 文件 , redis , beanstalk 存储队列方式
