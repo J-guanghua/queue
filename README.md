@@ -36,17 +36,17 @@ class DownloadJob extends \guanghua\queue\base\Basics implements\guanghua\queue\
 以下是如何将任务发送到队列中：
 
 //文件队列
-Guanghua::file()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg'，]））;
+Guanghua::file()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
 
 //redis队列
-Guanghua::redis()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg'，]））;
+Guanghua::redis()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
 
 //beanstalk队列
-Guanghua::beanstalk()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg'，]））;
+Guanghua::beanstalk()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
 
 将作业推送到5分钟后运行的队列中：
 
-Guanghua::file()->delay（5 * 60)->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg' ，]））;
+Guanghua::file()->delay（5 * 60)->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
 
 任务执行的确切方式取决于所使用的驱动程序。驱动程序的大部分可以使用控制台命令运行，组件在应用程序中注册。
 
@@ -60,7 +60,7 @@ Guanghua::file()->listen 命令启动一个无限查询队列的守护程序：
 该组件具有跟踪被推入队列的作业的状态的能力。
 
 //将作业推入队列并获取作业ID。
-$ID = Guanghua::file()->push（new SomeJob（）;
+$ID = Guanghua::file()->push（new DownloadJob) ;
 
 //工作正在等待执行。
 Guanghua::file()->isWaiting（$ID）;
