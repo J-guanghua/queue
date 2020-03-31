@@ -47,13 +47,14 @@ Guanghua::beanstalk()->push（new DownloadJob（['url'=>' http://example.com/ima
 
 Guanghua::file()->delay（5 * 60)->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
 
-任务执行的确切方式取决于所使用的驱动程序。驱动程序的大部分可以使用控制台命令运行，组件在应用程序中注册。
 
-在循环中获取并执行任务的命令，直到队列为空：
 
-Guanghua::file()->run() 消费队列
+任务执行的确切方式取决于所使用的驱动程序。驱动程序的大部分可以使用控制台命令运行。
 
-Guanghua::file()->listen 命令启动一个无限查询队列的守护程序：
+
+Guanghua::file()->run() 在循环中获取并执行任务的命令，直到队列为空：
+
+Guanghua::file()->listen() 命令启动一个无限查询队列的守护程序：
 
 
 该组件具有跟踪被推入队列的作业的状态的能力。
