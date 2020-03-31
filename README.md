@@ -35,13 +35,13 @@ class DownloadJob extends \guanghua\queue\base\Basics implements \guanghua\queue
 }
 以下是如何将任务发送到队列中：
 
-//文件队列 Guanghua类文件 配置文件存储路径
+//文件队列               Guanghua类文件 配置文件存储路径
 Guanghua::file()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
 
-//redis队列  Guanghua类文件 配置连接主机
+//redis队列              Guanghua类文件 配置连接主机
 Guanghua::redis()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
 
-//beanstalk队列 Guanghua类文件 配置连接主机
+//beanstalk队列          Guanghua类文件 配置连接主机
 Guanghua::beanstalk()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
 
 将作业推送到5分钟后运行的队列中：
