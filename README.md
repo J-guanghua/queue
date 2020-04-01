@@ -4,7 +4,7 @@ Installation
 
 安装此扩展的首选方法是通过 [composer](http://getcomposer.org/download/).
 
-php composer.phar require --prefer-dist guanghua/queue
+php composer.phar require --prefer-dist guanghua/queue "dev-master"
 
 or add
 
