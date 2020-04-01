@@ -1,8 +1,8 @@
 {
     "name": "guanghua/queue",
     "description": "消息队列",
-    "type": "extension",
-    "keywords": ["queue","extension"],
+    "type": "yii-extension",
+    "keywords": ["queue","file","redis"],
     "homepage": "https://github.com/J-guanghua/queue",
     "license": "BSD-3-Clause",
     "authors": [
