@@ -2,7 +2,7 @@
     "name": "guanghua/queue",
     "description": "消息队列",
     "type": "yii-extension",
-    "keywords": ["queue","file","redis"],
+    "keywords": ["queue","file","redis","beanstalk"],
     "homepage": "https://github.com/J-guanghua/queue",
     "license": "BSD-3-Clause",
     "authors": [
@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "guanghua\\queue\\": " "
+            "guanghua\\queue\\": ""
         }
     }
 }
