@@ -12,10 +12,10 @@
         }
     ],
     "require-dev": {
-        "pda/pheanstalk": "*",
+        "pda/pheanstalk": "*"
     },
     "suggest": {
-        "pda/pheanstalk": "Need for Beanstalk queue.",
+        "pda/pheanstalk": "Need for Beanstalk queue."
     },
     "autoload": {
         "psr-4": {
