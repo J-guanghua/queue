@@ -1,17 +1,12 @@
 <?php
-/**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
 
 namespace guanghua\queue\beanstalk;
 
 use Pheanstalk\Exception\ServerException;
 use Pheanstalk\Pheanstalk;
 use Pheanstalk\PheanstalkInterface;
-use guanghua\queue\conn\Queue as ConnQueue;
-use guanghua\queue\conn\Signal;
+use guanghua\queue\Queue as ConnQueue;
+use guanghua\queue\base\Signal;
 
 
 class Queue extends ConnQueue
