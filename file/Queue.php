@@ -6,7 +6,7 @@
 
 namespace guanghua\queue\file;
 
-use guanghua\queue\conn\Signal;
+use guanghua\queue\base\Signal;
 use guanghua\queue\Queue as ConnQueue;
 
 /**
