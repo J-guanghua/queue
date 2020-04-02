@@ -11,6 +11,12 @@
             "email": "hua.163com@qq.com"
         }
     ],
+    "require-dev": {
+        "pda/pheanstalk": "*",
+    },
+    "suggest": {
+        "pda/pheanstalk": "Need for Beanstalk queue.",
+    },
     "autoload": {
         "psr-4": {
             "guanghua\\queue\\": ""
