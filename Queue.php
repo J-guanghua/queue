@@ -104,12 +104,7 @@ abstract class Queue extends Monitor
         return $this;
     }
 
-    /**
-     * 将作业推入队列
-     *
-     * @param Job|mixed $job
-     * @return string|null id of a job message
-     */
+    //将作业推入队列 并返回作业ID
     public function push($job)
     {    
         $event = new PushEvent([
@@ -133,22 +128,10 @@ abstract class Queue extends Monitor
         return $event->id;
     }
 
-    /**
-     * @param string $message
-     * @param int $ttr time to reserve in seconds
-     * @param int $delay
-     * @param mixed $priority
-     * @return string|null id of a job message
-     */
+    //添加作业接口 返回消息的id
     abstract protected function pushMessage($message, $ttr, $delay, $priority);
 
-    /**
-     * @param string|null $id of a job message
-     * @param string $message
-     * @param int $ttr time to reserve
-     * @param int $attempt number
-     * @return boolean
-     */
+    //执行 队列作业方法
     protected function handleMessage($id, $message, $ttr, $attempt)
     {
         $job = $this->serializer->unserialize($message);
@@ -176,15 +159,7 @@ abstract class Queue extends Monitor
         return true;
     }
 
-    /**
-     * @param string|null $id
-     * @param Job $job
-     * @param int $ttr
-     * @param int $attempt
-     * @param \Exception $error
-     * @return bool
-     * @internal
-     */
+    //队列作业 执行异常处理
     public function handleError($id, $job, $ttr, $attempt, $error)
     {
         $event = new ErrorEvent([
