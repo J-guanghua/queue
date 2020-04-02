@@ -4,7 +4,7 @@ namespace guanghua\queue\base;
 use guanghua\queue\base\Basics;
 
 /**
- * Class Serializer
+ * 类序列化器
  */
 interface Serializer
 {
