@@ -2,14 +2,15 @@
 
 namespace guanghua\queue\redis;
 
-use guanghua\queue\conn\Queue as ConnQueue;
-use guanghua\queue\conn\Signal;
 
+use guanghua\queue\guanghua;
+use guanghua\queue\base\Signal;
+use guanghua\queue\Queue as ConnQueue;
 
 class Queue extends ConnQueue
 {
 	//redis连接配置
-    public $redis = null;
+    public $redis = 'redis';
     //连接主机
     public $hostname = 'localhost';
 
@@ -25,11 +26,8 @@ class Queue extends ConnQueue
     public function init()
     {
         parent::init();
-        $this->redis = $this->redis?:new RedisConn([
-        		'hostname'     =>$this->hostname,
-        		'port'     => $this->port,
-        		'database' => $this->database
-        	]);
+        $this->redis = guanghua::ensure($this->redis,RedisConn::class);
+
     }
 
 	//从redis-queue运行所有作业。
