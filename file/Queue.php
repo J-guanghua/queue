@@ -11,8 +11,6 @@ use guanghua\queue\Queue as ConnQueue;
 
 /**
  * File Queue
- *
- * @author Roman Zhuravlev <zhuravljov@gmail.com>
  */
 class Queue extends ConnQueue
 {
