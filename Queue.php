@@ -4,19 +4,17 @@
  *文件队列
  */
 
-namespace guanghua\queue;
+namespace queue;
 
-use guanghua\queue\base\Monitor;
-use guanghua\queue\base\Serializer;
-use guanghua\queue\base\PhpSerializer;
-use guanghua\queue\base\BaseVarDumper;
+use queue\base\Event;
+use queue\base\Serializer;
+use queue\base\PhpSerializer;
+use queue\base\BaseVarDumper;
 
 /**
  * Base Queue
- *
- * @author Roman Zhuravlev <zhuravljov@gmail.com>
  */
-abstract class Queue extends Monitor
+abstract class Queue extends Event
 {
     /**
      * @event PushEvent

@@ -1,11 +1,9 @@
 <?php
 
-namespace guanghua\queue;
+namespace queue;
 
 /**
  * Class PushEvent
- *
- * @author Roman Zhuravlev <zhuravljov@gmail.com>
  */
 class PushEvent extends JobEvent
 {

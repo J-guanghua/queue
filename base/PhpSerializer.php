@@ -1,7 +1,7 @@
 <?php
-namespace guanghua\queue\base;
+namespace queue\base;
 
-use guanghua\queue\base\Basics;
+use queue\base\Basics;
 
 /**
  * 类序列化器

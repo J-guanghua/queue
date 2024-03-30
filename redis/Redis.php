@@ -1,13 +1,13 @@
 <?php
 
-namespace guanghua\queue\redis;
+namespace queue\redis;
 
 
-use guanghua\queue\base\Monitor;
+use queue\base\Event;
 
 use Exception;
 
-class RedisConn extends Monitor
+class Redis extends Event
 {
 	//事件在数据库连接建立后触发的事件
     const EVENT_AFTER_OPEN = 'afterOpen';

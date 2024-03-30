@@ -1,36 +1,39 @@
 <?php
 
-namespace guanghua\queue\redis;
+namespace queue\redis;
 
 
-use guanghua\queue\guanghua;
-use guanghua\queue\base\Signal;
-use guanghua\queue\Queue as ConnQueue;
+use queue\base\Signal;
+use queue\Queue as BaseQueue;
 
-class Queue extends ConnQueue
+class Queue extends BaseQueue
 {
-	//redis连接配置
-    public $redis = 'redis';
+	// redis 实例
+    protected $redis;
     //连接主机
     public $hostname = 'localhost';
 
     public $database = 0;
     
-    //连接端口
+    // 连接端口
     public $port = 6379;
 
-    //前缀名
-    public $channel = 'queues';
+    // 前缀名
+    public $channel = 'queue';
 
-	//inheritdoc
+	// inheritdoc
     public function init()
     {
         parent::init();
-        $this->redis = guanghua::ensure($this->redis,RedisConn::class);
+        $this->redis = new Redis([
+            'hostname' => $this->hostname, // 连接主机
+            'port'     => $this->port,     // 连接端口
+            'database' => $this->database  // 连接数据库
+        ]);
 
     }
 
-	//从redis-queue运行所有作业。
+	// 从redis-queue运行所有作业。
     public function run()
     {
         $this->openWorker();
@@ -43,7 +46,7 @@ class Queue extends ConnQueue
         $this->closeWorker();
     }
 
-	//侦听redis-queue并运行新作业。
+	// 侦听redis-queue并运行新作业。
     public function listen($wait)
     {
         $this->openWorker();
@@ -58,7 +61,7 @@ class Queue extends ConnQueue
         $this->closeWorker();
     }
 
-    //等待超时
+    // 等待超时
     protected function reserve($wait)
     {
         // 将延迟的消息移动到等待状态
@@ -89,9 +92,6 @@ class Queue extends ConnQueue
 
     private $now = 0;
 
-    /**
-     * @inheritdoc
-     */
     protected function moveExpired($from, $time)
     {
         if ($expired = $this->redis->zrevrangebyscore($from, $time, '-inf')) {
@@ -102,7 +102,7 @@ class Queue extends ConnQueue
         }
     }
 
-	//根据ID删除消息
+	// 根据ID删除消息
     protected function delete($id)
     {
         $this->redis->zrem("$this->channel.reserved", $id);
@@ -110,9 +110,6 @@ class Queue extends ConnQueue
         $this->redis->hdel("$this->channel.messages", $id);
     }
 
-    /**
-     * @inheritdoc
-     */
     protected function pushMessage($message, $ttr, $delay, $priority)
     {
         if ($priority !== null) {
@@ -141,9 +138,7 @@ class Queue extends ConnQueue
         $this->redis->clientSetname('');
     }
 
-    /**
-     * @inheritdoc
-     */
+    // 获取任务状态
     protected function status($id)
     {
         if (!is_numeric($id) || $id <= 0) {

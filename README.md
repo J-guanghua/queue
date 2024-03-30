@@ -19,54 +19,76 @@ Usage
 
 支持 文件 , redis , beanstalk 存储队列方式
 
+use queue\file\Queue;
+use queue\redis\Queue as RedisQueue;
+use queue\beanstalk\Queue as BeanstalkQueue;
 
-定义一个文件下载类 并实现\guanghua\queue\Job 接口方法
-class DownloadJob extends \guanghua\queue\base\Basics implements \guanghua\queue\Job {
- 
- public $url; 
- public $file;
+// 如果是手动载入，没有使用 composer
+spl_autoload_register(function ($className) {
+    // queue 目录所在路径
+    $dirPath = __DIR__.'\\pieend';
+    // 将命名空间中的反斜杠转换为目录分隔符
+    $classFile =  str_replace('\\', '/', $dirPath. '\\'. $className) . '.php';
+    // 如果文件存在，则包含文件
+    if (is_file($classFile)) {
+        include($classFile);
+    }
+});
 
- public function execute($queue)
- {
-     file_put_contents($this->file, file_get_contents($this->url));
- }
+
+// 定义一个文件下载类 并实现 queue\Job 接口方法
+class DownloadJob extends \queue\base\Basics implements \queue\Job {
+
+     public $url;
+     public $file;
+    
+     public function execute($queue)
+     {
+         file_put_contents($this->file, file_get_contents($this->url));
+     }
 
 }
-以下是如何将任务发送到队列中：
 
-//文件队列               Guanghua类文件 配置文件存储路径
-Guanghua::file()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
+// 实例化一个本地文件队列 
+$queue = new Queue(["path"=>"./queue"]);
 
-//redis队列              Guanghua类文件 配置连接主机
-Guanghua::redis()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
+// 实例化一个redis队列
+$queue = new RedisQueue([
+   'hostname' => '127.0.0.1', //连接主机
+   'port'     => 6379, //连接端口
+   'database' => 0 //连接数据库
+]);
 
-//beanstalk队列          Guanghua类文件 配置连接主机
-Guanghua::beanstalk()->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
+// 实例化一个beanstalk队列
+$queue = new BeanstalkQueue([
+    'hostname' => '127.0.0.1', //连接主机
+]);
 
-将作业推送到5分钟后运行的队列中：
+// 文件队列
+$queue->push(new DownloadJob(['url'=>'https://www.topgoer.cn/uploads/202008/cover_162950b2ef51313f_small.png','file'=>'./queue/image.jpg']));
 
-Guanghua::file()->delay（5 * 60)->push（new DownloadJob（['url'=>' http://example.com/image.jpg'，'file'= >'/tmp/image.jpg']））;
+// 将作业推送到5分钟后运行的队列中：
+$queue->delay(5 * 60)->push(new DownloadJob(['url'=>' http://example.com/image.jpg','file'=>'./queue/image.jpg']));
+
+// 任务执行的确切方式取决于所使用的驱动程序。驱动程序的大部分可以使用控制台命令运行。
+$queue->run(); // 在循环中获取并执行任务的命令，直到队列为空：
+
+// 生产作业方式
+// 命令启动一个队列的守护程序：
+$queue->listen();
 
 
+// 该组件具有跟踪被推入队列的作业的状态的能力。
 
-任务执行的确切方式取决于所使用的驱动程序。驱动程序的大部分可以使用控制台命令运行。
+// 将作业推入队列并获取作业ID。
+$ID = $queue->push（new DownloadJob) ;
 
-
-Guanghua::file()->run() 在循环中获取并执行任务的命令，直到队列为空：
-
-Guanghua::file()->listen() 命令启动一个无限查询队列的守护程序：
-
-
-该组件具有跟踪被推入队列的作业的状态的能力。
-
-//将作业推入队列并获取作业ID。
-$ID = Guanghua::file()->push（new DownloadJob) ;
-
-//工作正在等待执行。
-Guanghua::file()->isWaiting（$ID）;
+// 工作正在等待执行。
+$queue->isWaiting($ID);
 
 // Worker从队列中获取作业，并执行它。
-Guanghua::file()->isReserved（$ID）;
+$queue->isReserved($ID);
 
-//工作执行了这个工作。
-Guanghua::file()->isDone（$ID）; 
+// 这个工作是否被执行。
+$queue->isDone($ID); 
+```

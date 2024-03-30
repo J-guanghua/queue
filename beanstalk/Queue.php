@@ -1,15 +1,15 @@
 <?php
 
-namespace guanghua\queue\beanstalk;
+namespace queue\beanstalk;
 
 use Pheanstalk\Exception\ServerException;
 use Pheanstalk\Pheanstalk;
 use Pheanstalk\PheanstalkInterface;
-use guanghua\queue\Queue as ConnQueue;
-use guanghua\queue\base\Signal;
+use queue\Queue as BaseQueue;
+use queue\base\Signal;
 
 
-class Queue extends ConnQueue
+class Queue extends BaseQueue
 {
     //连接主机
     public $host = 'localhost';

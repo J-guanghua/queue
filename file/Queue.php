@@ -4,15 +4,15 @@
  *文件队列
  */
 
-namespace guanghua\queue\file;
+namespace queue\file;
 
-use guanghua\queue\base\Signal;
-use guanghua\queue\Queue as ConnQueue;
+use queue\base\Signal;
+use queue\Queue as BaseQueue;
 
 /**
  * File Queue
  */
-class Queue extends ConnQueue
+class Queue extends BaseQueue
 {
     //文件队列存储队列
     public $path;

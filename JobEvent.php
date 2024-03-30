@@ -1,9 +1,7 @@
 <?php
+namespace queue;
 
-
-namespace guanghua\queue;
-
-use guanghua\queue\base\Basics;
+use queue\base\Basics;
 
 /**
  * Class JobEvent

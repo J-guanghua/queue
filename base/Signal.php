@@ -1,6 +1,6 @@
 <?php
 
-namespace guanghua\queue\base;
+namespace queue\base;
 
 /**
  * 进程信号帮手

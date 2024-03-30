@@ -1,9 +1,9 @@
 <?php
 
-namespace guanghua\queue\base;
+namespace queue\base;
 
 
-class Monitor extends Basics
+class Event extends Basics
 {
     
     //将附加的事件处理程序(事件名称=>处理程序)数组化
